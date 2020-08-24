@@ -1,0 +1,2 @@
+# ScreenTranslator.py
+Screen Translator
