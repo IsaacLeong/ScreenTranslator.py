@@ -13,20 +13,41 @@ class ScreenTrans(QWidget):
 	def __init__(self):
 		super().__init__()
 		self.title = 'Main Application'
+		self.layout = QGridLayout()
 		
-		#once application runs pyautogui will automatically click the target of mouse
-		pyautogui.click()		
+		#dimension size and coordinate variables
+		self.width = 0
+		self.height = 0
+		self.left = 0
+		self.top = 0
+		
+		#button to start application translation
+		self.button = QPushButton("Start Application")
+		self.button.clicked.connect(self.start_trans)
+		self.layout.addWidget(self.button)
+		
+		self.label = QLabel('Text Display Here')
+		self.label.setAlignment(Qt.AlignCenter)
+		
+		self.setLayout(self.layout)
+		self.show()
+	
+	def start_trans(self):
+		#intialize necessary dimension sizes within 2.5 seconds
+		pyautogui.click()
+		pyautogui.PAUSE = 2.5
+		pyautogui.click()
 		fw = pyautogui.getActiveWindow()
 		self.width = fw.width
 		self.height = fw.height
 		self.left = fw.left
 		self.top = fw.top
-		
-		self.label = QLabel()
-		self.refresh_label()
-		self.label.setAlignment(Qt.AlignCenter)
-		self.label.show()
 
+		#remove button and display translation
+		self.button.deleteLater()
+		self.refresh_label
+		self.layout.addWidget(self.label)
+	
 	def refresh_label(self):
 		#updates translated text
 		frame = self.screen_rec(left=self.left, top=self.top, width=self.width, height=self.height)
@@ -39,6 +60,8 @@ class ScreenTrans(QWidget):
 		frame = numpy.array(image)
 		frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 		frame = cv2.bitwise_not(frame)
+		#added threshold to clearup images
+		frame = cv2.threshold(frame, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 		cv2.destroyAllWindows()
 		return frame
 
@@ -48,7 +71,6 @@ class ScreenTrans(QWidget):
 		translator = Translator()
 		text = pytesseract.image_to_string(Image.fromarray(frame), lang='jpn')
 		text = translator.translate(text, src='ja', dest='en').text
-	
 		return text
 
 
