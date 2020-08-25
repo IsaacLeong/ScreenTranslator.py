@@ -2,11 +2,11 @@
 ## Description:
 <p>Application is an experimental project to translate foreign languages on a screen developed in <i>python</i>. Note: the application is currently not optimised to handle images with large amounts of background noise or filter non-sense words<p>
 <p>following open-source libraries were used:</p>
-<li> - PyQt </li>
-<li> - OpenCV </li>
-<li> - PyAutoGUI </li>
-<li> - PyTesseractOCR </li>
-<li> - GoogleTrans </li>
+<li> PyQt </li>
+<li> OpenCV </li>
+<li> PyAutoGUI </li>
+<li> PyTesseractOCR </li>
+<li> GoogleTrans </li>
 
 ## Application Structure:
 ```
@@ -19,6 +19,13 @@
 ```
 
 ## Log:
+<b>V.01.1 - 25/08/20</b>
+<p><i>Added:</i></p>
+<li> + Update button for UI</li>
+<p><i>Fixes:</i></p>
+<li> None </li>
+
+
 <b>V.01 - 24/08/20</b>
 <p><i>Added:</i></p>
 <li> + Base application functionality complete
