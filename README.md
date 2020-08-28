@@ -42,8 +42,8 @@
 <li> - OCR not optimised for multiple variants (i.e. high-noise, hand-writing, skewed, etc.)
   
 ## Future Considerations:
-Using NLTK to improve translations accuracy
-Google Vision to handle OCR
-Lanugage detection open reading
-Improve the display as an overlay instead of 
-Multithread application to run smoother
+<p>Using NLTK to improve translations accuracy
+<p>Google Vision to handle OCR
+<p>Lanugage detection open reading
+<p>Improve the display as an overlay instead of 
+<p>Multithread application to run smoother
