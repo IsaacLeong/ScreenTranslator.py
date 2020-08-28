@@ -15,11 +15,20 @@ class ScreenTrans(QWidget):
 		self.title = 'Main Application'
 		self.layout = QGridLayout()
 		
-		#dimension size and coordinate variables
+		#initial variable sets
 		self.width = 0
 		self.height = 0
 		self.left = 0
 		self.top = 0
+		self.lang_src = ''
+		self.ocr_lang = ''
+		self.app_start = False
+		
+		#set the language for ocr and translator default is set to english
+		self.lang_option = QComboBox()
+		self.lang_option.addItems(googletrans.LANGUAGES.values())
+		self.lang_option.currentIndexChanged.connect(self.lang_change)
+		self.layout.addWidget(self.lang_option)
 		
 		#button to start application translation
 		self.button = QPushButton("Start Application")
@@ -32,6 +41,22 @@ class ScreenTrans(QWidget):
 		self.setLayout(self.layout)
 		self.show()
 	
+	def lang_change(self, i):
+		#adjust the language settings for the OCR and goolgetrans libraries
+		key = list(googletrans.LANGUAGES.keys())
+		self.lang_src = key[i]
+		
+		d = {}
+		with open('lang_text.txt') as f:
+			lines = f.readlines()
+			for line in lines:
+				(key, val) = line.replace(' ','').strip().split('=')
+				d[key] = val
+		f.close()
+		
+		self.ocr_lang = d.get(self.lang_src)
+		self.label.setText(self.lang_src)
+		
 	def start_trans(self):
 		#intialize necessary dimension sizes within 2.5 seconds
 		pyautogui.click()
@@ -43,16 +68,20 @@ class ScreenTrans(QWidget):
 		self.left = fw.left
 		self.top = fw.top
 
-		#remove button and display translation
+		#remove button and language option then display translation
 		self.button.deleteLater()
+		self.lang_option.deleteLater()
 		self.refresh_label
 		self.layout.addWidget(self.label)
 	
 	def refresh_label(self):
-		#updates translated text
-		frame = self.screen_rec(left=self.left, top=self.top, width=self.width, height=self.height)
-		text = self.translate_text(frame)
-		self.label.setText(text)
+		#updates translated text // bypass refresh if the application start button not pressed
+		if self.app_start:
+			frame = self.screen_rec(left=self.left, top=self.top, width=self.width, height=self.height)
+			text = self.translate_text(frame)
+			self.label.setText(text)
+		else:
+			pass
 
 	def screen_rec(self, width, height, left, top):
 		#gets screenshot of image with dimensions specified above	
