@@ -19,6 +19,13 @@
 ```
 
 ## Log:
+<b>V.01.2 - 28/08/20</b>
+<p><i>Added:</i></p>
+<li> + Langauge Options Added 1/2</li>
+<p><i>Fixes:</i></p>
+<li> + Bypass for refresh label function </li>
+
+
 <b>V.01.1 - 25/08/20</b>
 <p><i>Added:</i></p>
 <li> + Update button for UI</li>
@@ -29,10 +36,10 @@
 <b>V.01 - 24/08/20</b>
 <p><i>Added:</i></p>
 <li> + Base application functionality complete
-<p><i>Bugs + Deductions:</i></p>
+<p><i>Bugs + Issues:</i></p>
 <li> - Application should be more dynamic in getting screen capture
-<li> - Language setting implementations
 <li> - Non-sense words not filtered
+<li> - OCR not optimised for multiple variants (i.e. high-noise, hand-writing, skewed, etc.)
   
 ## Future Considerations:
 Using NLTK to improve translations accuracy
